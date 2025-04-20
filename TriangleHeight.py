@@ -1,49 +1,68 @@
 '''
+Problem: 
+Example:
+- input --> 4 , Output : 1 2 4 8 4 2 1
+- input -- > 5 , Output : 1 2 4 8 16 8 4 2 1
+--------------------------------------
 ALgorithm : 
 1. Promote user to Input the height n.
 
-2. Loop from i = 1 to n (each row):
+2. Initialize an empty list list1 to hold the left side and center value.
 
-    Initialize an empty list line.
+3. Initialize an empty list list2 to hold the right side (a mirror of the left side).
 
-    Loop j = 0 to i-1:
+4. Loop from i = 0 to height - 2:
 
-        Append 2^j (power of 2) as a string to line.
+        Append 2^i to list1.
 
-    Loop j = i-2 down to 0:
+5. Append 2 * last element of list1 to list1 (this is the center value).
 
-        Append 2^j as a string to line.
+6. Loop from j = 2 to height:
 
-    Join the list line into a single string and print it.
-'''
+        Append the -jth element of list1 to list2.
 
-'''
+7. Merge list1 and list2 to create final list3.
+
+8. Print list3.
+---------------------------------------
 Pseudocode: 
+
 START
-  INPUT height
-  FOR i FROM 1 TO height DO
-    SET line TO empty list
+INPUT h
+INITIALIZE list1 as empty list
+INITIALIZE list2 as empty list
 
-    FOR j FROM 0 TO i-1 DO
-      ADD 2^j AS STRING TO line
+FOR i FROM 0 TO h - 2 DO
+    list1.APPEND(2 TO THE POWER OF i)
+END FOR
 
-    FOR j FROM i-2 DOWNTO 0 DO
-      ADD 2^j AS STRING TO line
+list1.APPEND(last element of list1 TIMES 2)
 
-    JOIN elements of line into a single string
-    PRINT the string
-  END FOR
+FOR j FROM 2 TO h DO
+    list2.APPEND(list1[-j])
+END FOR
+
+list3 = CONCATENATE list1 AND list2
+
+PRINT list3
+
 END
 '''
-height = int(input("Enter the height: "))
 
-for i in range(1, height + 1):
-    line = []
+h = int(input(" Enter Height: "))
 
-    for j in range(i):
-        line.append(str(2 ** j))
+list1 = [] # Left Side + Centerd value
+list2 = [] # Right Side (Mirror of Left Side)
 
-    for j in range(i - 2, -1, -1):
-        line.append(str(2 ** j))
+for i in range(h - 1):
+    list1.append(2**i)
+    
+list1.append(list1[-1] * 2)  # Centerd Value
 
-    print("".join(line))
+
+for j in range(2, h + 1):
+    list2.append(list1[-j])
+    
+list3 = list1 + list2   # Merge them
+print(list3)
+
